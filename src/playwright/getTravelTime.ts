@@ -6,7 +6,7 @@ export const getTravelTime = async (
   narekCoordinates: number[],
   destination: number[]
 ) => {
-    const browser = await chromium.launch({ headless: false, slowMo: getRandomArbitrary(300, 3500) });
+    const browser = await chromium.launch({ headless: true, slowMo: getRandomArbitrary(300, 3500) });
     const page = await browser.newPage();
     const url = `https://yandex.com/maps/10262/yerevan/?indoorLevel=1&mode=routes&rtext=${narekCoordinates[0]}%2C${narekCoordinates[1]}~${destination[0]}%2C${destination[1]}`;
     const responsePromise = page.waitForResponse(url);
