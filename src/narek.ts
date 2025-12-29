@@ -62,6 +62,14 @@ bot.onText(/\/whereisnarek/, async (msg) => {
     await sendLocationMessage(msg.chat.id, narekLocation, bot, DESTINATION);
 });
 
+bot.onText(/\/getchatid/, async (msg) => {    
+    if (msg.from?.id !== process.env.ARMEN_ID) {
+        bot.sendMessage(msg.chat.id, `🆔 This Chat ID is ${msg.chat.id}`);
+        return;
+    }
+    bot.sendMessage(msg.chat.id, `🎲 You are not authorized to use this command.`);
+});
+
 bot.onText(/\/win/, async (msg) => {
     if (!narekLocation) {
         bot.sendMessage(msg.chat.id, "⚠️ Narek hasn't shared his location yet.");
@@ -91,4 +99,8 @@ bot.onText(/\/refresh/, async (msg) => {
 
     startLocationExpirationTimer();
     bot.sendMessage(msg.chat.id, "🔄 Location timer refreshed. You have another 5 minutes.");
+});
+
+bot.onText(/\/cx/, async (msg) => {
+    bot.sendMessage(msg.chat.id, "🚬")
 });
