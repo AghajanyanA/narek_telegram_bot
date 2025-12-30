@@ -6,7 +6,7 @@ import { sendCachedLocationMessage } from './utils/sendCachedLocationMessage';
 dotenv.config();
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN!;
-const NAREK_USERNAME = process.env.NAREK_ID!;
+const NAREK_USERNAME = process.env.NAREK_USERNAME!;
 const DESTINATION = [
     parseFloat(process.env.DESTINATION_LNG!),
     parseFloat(process.env.DESTINATION_LAT!)
@@ -28,7 +28,7 @@ function startLocationExpirationTimer() {
 }
 
 bot.on('location', async (msg) => {
-    const isNarek = msg.from?.username === NAREK_USERNAME
+    const isNarek = msg.from?.username === NAREK_USERNAME    
 
     if (!isNarek) {
         bot.sendMessage(msg.chat.id, `❌ Only Narek can update his location. \n🥵 Please ask @${NAREK_USERNAME} to send his location.`);
@@ -60,14 +60,6 @@ bot.onText(/\/whereisnarek/, async (msg) => {
     }
 
     await sendLocationMessage(msg.chat.id, narekLocation, bot, DESTINATION);
-});
-
-bot.onText(/\/getchatid/, async (msg) => {    
-    if (msg.from?.id !== process.env.ARMEN_ID) {
-        bot.sendMessage(msg.chat.id, `🆔 This Chat ID is ${msg.chat.id}`);
-        return;
-    }
-    bot.sendMessage(msg.chat.id, `🎲 You are not authorized to use this command.`);
 });
 
 bot.onText(/\/win/, async (msg) => {
